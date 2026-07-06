@@ -169,9 +169,10 @@
 <div class="wrap">
 
   <div class="hero">
+    <div class="logo">🖨️</div>
     <h1>Hall Printing Service</h1>
     <p>Fast • Reliable • Affordable Printing</p>
-    <div class="sub">Print your documents in just a few clicks.</div>
+    <div class="sub">Print your documents in just a few clicks. এখন একসাথে একাধিক ফাইল আপলোড করা যায়।</div>
   </div>
 
   <div class="card">
@@ -183,6 +184,7 @@
       <span class="ic">📄</span>
       <div class="t1">Click to upload files</div>
       <div class="t2">PDF &amp; Images (Max 10MB) A4 Size Only</div>
+      <div class="t3">একাধিক ফাইল সাপোর্টেড</div>
       <input type="file" id="fileInput" accept="application/pdf,image/*" multiple style="display:none">
     </div>
 
@@ -286,27 +288,6 @@ function analyzeColor(ctx, w, h){
   return totalPixels === 0 ? 0 : colorPixels / totalPixels;
 }
 
-// "1-5,8,10-12" জাতীয় রেঞ্জ পার্স করে page numbers (1-indexed) এর array রিটার্ন করে।
-// খালি/অবৈধ হলে null (মানে সব পেজ ব্যবহার হবে)।
-function parseRange(rangeStr, maxPages){
-  if (!rangeStr || !rangeStr.trim() || !maxPages) return null;
-  const result = new Set();
-  rangeStr.split(',').forEach(part => {
-    part = part.trim();
-    if (!part) return;
-    const m = part.match(/^(\d+)\s*-\s*(\d+)$/);
-    if (m){
-      let a = parseInt(m[1],10), b = parseInt(m[2],10);
-      if (a > b) [a,b] = [b,a];
-      for (let p = a; p <= b; p++) if (p >= 1 && p <= maxPages) result.add(p);
-    } else if (/^\d+$/.test(part)){
-      const p = parseInt(part,10);
-      if (p >= 1 && p <= maxPages) result.add(p);
-    }
-  });
-  return result.size ? Array.from(result).sort((a,b)=>a-b) : null;
-}
-
 function optionsHTML(selectedValue){
   let html = `<option value="" disabled ${!selectedValue ? 'selected' : ''}>বেছে নিন</option>`;
   PRINT_TYPES.forEach(pt => {
@@ -326,15 +307,9 @@ function renderCard(entry){
       <span class="rm" data-action="remove">✕</span>
     </div>
     <div class="file-body">
-      <div class="row2">
-        <div class="field-mini">
-          <label>Pages</label>
-          <input type="text" class="pageCount" value="—" readonly>
-        </div>
-        <div class="field-mini">
-          <label>Range</label>
-          <input type="text" class="rangeInput" placeholder="e.g. 1-5">
-        </div>
+      <div class="field-mini" style="margin-top:14px;">
+        <label>Pages</label>
+        <input type="text" class="pageCount" value="—" readonly>
       </div>
       <div class="row2">
         <div class="field-mini">
@@ -405,8 +380,7 @@ function recalcOne(entry){
     return;
   }
 
-  const selectedPages = parseRange(entry.range, entry.pageColorPercents.length);
-  const percents = selectedPages ? selectedPages.map(p => entry.pageColorPercents[p-1]) : entry.pageColorPercents.slice();
+  const percents = entry.pageColorPercents.slice();
 
   let units = [];
   if (pt.mode === 'single'){
@@ -520,7 +494,6 @@ async function addFiles(fileList){
       pageColorPercents: [],
       copies: 1,
       printType: '',
-      range: '',
       status: 'scanning',
       ready: false,
       total: 0, price: 0, pageCountUsed: 0,
@@ -576,9 +549,6 @@ filesList.addEventListener('input', e => {
     e.target.value = e.target.value.replace(/[^0-9]/g, '');
     entry.copies = parseInt(e.target.value) || 1;
     recalcAll();
-  } else if (e.target.classList.contains('rangeInput')){
-    entry.range = e.target.value;
-    recalcAll();
   }
 });
 
@@ -627,7 +597,7 @@ submitBtn.addEventListener('click', async () => {
     totalBill: currentTotal.toFixed(1),
     files: filesData.map(e => ({
       printType: e.printType,
-      copySet: e.pageCountUsed,
+      pagesUsed: e.pageCountUsed,
       price: (e.price || 0).toFixed(1),
       fileName: e.file.name,
       fileMimeType: e.file.type,
