@@ -597,6 +597,7 @@ submitBtn.addEventListener('click', async () => {
     totalBill: currentTotal.toFixed(1),
     files: filesData.map(e => ({
       printType: e.printType,
+      copies: e.copies,
       pagesUsed: e.pageCountUsed,
       price: (e.price || 0).toFixed(1),
       fileName: e.file.name,
