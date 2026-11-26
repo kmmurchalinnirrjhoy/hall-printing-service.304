@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Admin — Hall Printing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+
+<!-- ============ LOGIN ============ -->
+<div class="login" id="loginView">
+  <h1>Hall Printing — Admin</h1>
+  <p>শুধু মালিকের জন্য। PIN দিন।</p>
+  <div class="box">
+    <input type="password" id="pinInput" class="pin-input" inputmode="numeric" autocomplete="off" placeholder="••••" maxlength="12">
+    <button class="btn-main" id="loginBtn">প্রবেশ করুন</button>
+    <div class="msg" id="loginMsg"></div>
+  </div>
+</div>
+
+<!-- ============ APP ============ -->
+<div class="wrap hidden" id="appView">
+  <div class="topbar">
+    <div>
+      <h1>Admin Panel</h1>
+      <div class="upd" id="updTime"></div>
+    </div>
+    <div class="tb-actions">
+      <button class="icon-btn" id="refreshBtn">↻ রিফ্রেশ</button>
+      <button class="icon-btn" id="logoutBtn">বের হন</button>
+    </div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" data-tab="summary">সারাংশ</button>
+    <button class="tab" data-tab="pending">বাকি ফাইল<span class="badge" id="pendBadge">0</span></button>
+    <button class="tab" data-tab="customers">কাস্টমার</button>
+  </div>
+
+  <!-- ---- সারাংশ ---- -->
+  <div id="tab-summary">
+    <div class="card">
+      <h3>প্রিন্টের হিসাব (সময় অনুযায়ী)</h3>
+      <div class="seg" id="periodSeg">
+        <button data-p="today" class="active">আজ</button>
+        <button data-p="month">এই মাস</button>
+        <button data-p="all">সর্বমোট</button>
+      </div>
+      <div class="mini-grid" id="periodGrid"></div>
+    </div>
+
+    <div class="card">
+      <h3>কাগজের হিসাব</h3>
+      <div class="bar"><i id="paperBar" style="width:0%"></i></div>
+      <div class="bar-l"><span>প্রিন্ট <b id="pgPrinted">0</b></span><span>বাকি <b id="pgRemain">0</b></span><span>মোট <b id="pgTotal">0</b></span></div>
+    </div>
+
+    <div class="stat-grid" id="statGrid"></div>
+
+    <div class="card">
+      <h3>খরচের তালিকা</h3>
+      <div id="expList"></div>
+    </div>
+    <div class="foot-note" id="footNote"></div>
+  </div>
+
+  <!-- ---- বাকি ফাইল ---- -->
+  <div id="tab-pending" class="hidden">
+    <div class="sumline" id="pendSum"></div>
+    <div id="list-pending"></div>
+  </div>
+
+  <!-- ---- কাস্টমার ---- -->
+  <div id="tab-customers" class="hidden">
+    <div style="margin-top:14px;"><input type="search" id="custSearch" placeholder="নাম দিয়ে খুঁজুন…"></div>
+    <div class="chips" id="custChips">
+      <button data-f="all" class="active">সব</button>
+      <button data-f="due">বাকি</button>
+      <button data-f="adv">অগ্রিম</button>
+    </div>
+    <div class="filters">
+      <select id="custSort">
+        <option value="name">নামের ক্রমে (A→Z)</option>
+        <option value="amount">টাকার পরিমাণ (বেশি → কম)</option>
+      </select>
+    </div>
+    <div class="sumline" id="custSum"></div>
+    <div id="list-customers"></div>
+  </div>
+</div>
+
+<script src="js/config.js"></script>
+<script src="js/utils.js"></script>
+<script src="js/database.js"></script>
+<script src="js/admin.js"></script>
+<script src="js/auth.js"></script>
+</body>
+</html>

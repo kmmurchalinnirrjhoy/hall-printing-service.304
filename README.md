@@ -1,0 +1,37 @@
+# Hall Printing Service
+
+```
+HallPrinting/
+├── index.html        কাস্টমার পেজ (শুধু গঠন)
+├── admin.html        অ্যাডমিন পেজ (শুধু গঠন)
+├── css/
+│   ├── base.css      রং, ব্যাকগ্রাউন্ড, ফন্ট (দুই পেজের)
+│   ├── style.css     কাস্টমার পেজের ডিজাইন
+│   └── admin.css     অ্যাডমিন পেজের ডিজাইন
+├── js/
+│   ├── config.js     URL, WhatsApp নম্বর, প্রিন্টের দাম
+│   ├── utils.js      ছোট সাহায্যকারী ফাংশন
+│   ├── database.js   সার্ভারের সাথে যোগাযোগ
+│   ├── files.js      ফাইল আপলোড ও কালার স্ক্যান
+│   ├── pricing.js    দাম হিসাব
+│   ├── account.js    কাস্টমারের হিসাব ও WhatsApp মেসেজ
+│   ├── app.js        কাস্টমার পেজের বাটন ও সাবমিট
+│   ├── auth.js       অ্যাডমিন লগইন
+│   └── admin.js      অ্যাডমিন প্যানেল
+├── assets/images/    লোগো
+└── apps-script/
+    └── Code.js       Google Apps Script (ওয়েবসাইটে আপলোড করবেন না)
+```
+
+## কোথায় কী বদলাবেন
+| কাজ | ফাইল |
+|---|---|
+| প্রিন্টের দাম, WhatsApp নম্বর, API URL | `js/config.js` |
+| রং | `css/base.css` |
+| ডিজাইন | `css/style.css`, `css/admin.css` (PC এর অংশ ফাইলের নিচে `@media`) |
+| লেখা / বাটন | `index.html`, `admin.html` |
+| Sheet এর হিসাব, PIN | `apps-script/Code.js` → Apps Script এ paste করে নতুন version deploy |
+
+## মনে রাখুন
+- ওয়েবসাইটে আপলোড করবেন: `index.html`, `admin.html`, `css/`, `js/`, `assets/` (ফোল্ডারের গঠন একই রেখে)।
+- `js/` ফাইলগুলোর `<script>` ক্রম বদলাবেন না।

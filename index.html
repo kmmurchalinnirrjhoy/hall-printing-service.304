@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HallPrintingService</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hero">
+    <img class="banner-img" style="height:80px; width:auto;" src="assets/images/logo.png" alt="Hall Printing Service">
+    <p>Fast • Reliable • Affordable Printing</p>
+    <div class="sub">Print your documents in just a few clicks.</div>
+  </div>
+
+  <div class="layout">
+  <div class="col-left">
+
+  <div class="card">
+
+    <label for="custName">Customer Name</label>
+    <input type="text" id="custName" placeholder="আপনার নাম লিখুন">
+
+    <div class="dropzone" id="dropzone">
+      <span class="ic">📄</span>
+      <div class="t1">Click to upload files</div>
+      <div class="t2">PDF &amp; Images (Max 10MB) A4 Size Only</div>
+      <div class="t3">একাধিক ফাইল সাপোর্টেড</div>
+      <input type="file" id="fileInput" accept="application/pdf,image/*" multiple style="display:none">
+    </div>
+
+    <div id="filesList"></div>
+
+    <label for="amountPaid" style="margin-top:16px;">Amount Paid (Amount Paying)</label>
+    <input type="text" id="amountPaid" value="0" placeholder="0" inputmode="decimal" autocomplete="off">
+
+    <div class="checkrow" id="collectLaterRow">
+      <input type="checkbox" id="collectLater">
+      <div>
+        <div class="ctext">প্রিন্ট এখনই সংগ্রহ করবো না</div>
+        <div class="csub">অর্ডার সাবমিট করছি, প্রিন্ট পরে এসে সংগ্রহ করবো।</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="total-bar">
+    <span class="tk">Total Estimated Cost</span>
+    <span class="tv" id="rTotal">৳0.00</span>
+  </div>
+
+  <div class="actions-row">
+    <button class="btn-clear" id="clearBtn">🗑 Clear</button>
+    <button class="btn-submit" id="submitBtn" disabled>Submit Order →</button>
+  </div>
+
+  <div class="submit-hint" id="submitHint">For printing, photocopy or scanning feel free to contact anytime.</div>
+  <div class="status-box" id="statusBox"></div>
+
+  </div><!-- /col-left -->
+
+  <div class="col-right">
+
+  <div class="account-box" id="accountBox">
+    <div class="ah">আপনার হিসাব <span id="accName"></span></div>
+    <div class="acc-row"><span id="accPrevLabel">আগের বাকি</span><b id="accPrev">৳0.0</b></div>
+    <div class="acc-row"><span>আজকের বিল</span><b id="accToday">৳0.0</b></div>
+    <div class="acc-row"><span>আজ পরিশোধ</span><b id="accPaid">৳0.0</b></div>
+    <div class="acc-row grand"><span id="accGrandLabel">সর্বমোট বাকি</span><b id="accGrand">৳0.0</b></div>
+    <div class="acc-note" id="accNote" style="font-size:11.5px;color:var(--text-dim);margin-top:10px;"></div>
+  </div>
+
+  <div class="wa-order" id="waOrderBox">
+    <a class="btn-wa" id="waOrderBtn" href="#" target="_blank" rel="noopener">WhatsApp-এ অর্ডার ও বিলের হিসাব পাঠান</a>
+  </div>
+
+  <div class="whatsapp-card">
+    <a class="wa-link" href="https://wa.me/8801521794786" target="_blank" rel="noopener">
+      <span class="wa-icon">W</span>
+      <span>Contact us on WhatsApp</span>
+    </a>
+    <a class="fb-link" href="https://www.facebook.com/messages/e2ee/t/9595486410564983" target="_blank" rel="noopener">
+      <span class="fb-icon">M</span>
+      <span>Message us on Facebook</span>
+    </a>
+  </div>
+
+  </div><!-- /col-right -->
+  </div><!-- /layout -->
+
+  <footer>© 2026 Hall Printing Service. All Rights Reserved.</footer>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="js/config.js"></script>
+<script src="js/utils.js"></script>
+<script src="js/database.js"></script>
+<script src="js/pricing.js"></script>
+<script src="js/files.js"></script>
+<script src="js/account.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

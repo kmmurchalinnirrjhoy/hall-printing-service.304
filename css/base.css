@@ -1,0 +1,28 @@
+/* =====================================================
+   দুই পেজের সাধারণ স্টাইল: রং, ব্যাকগ্রাউন্ড, ফন্ট
+   ===================================================== */
+
+:root{
+  --navy-deep:#0a1730;
+  --navy-mid:#122a52;
+  --card:#132b56;
+  --field:#0d1e40;
+  --line:#28416f;
+  --gold-1:#ffe08a;
+  --gold-2:#ffb238;
+  --gold-3:#ff8a1f;
+  --text-hi:#f4f7ff;
+  --text-lo:#93a6cf;
+  --text-dim:#5f74a0;
+  --danger:#ff6b6b;
+  --ok:#57d99a;
+}
+
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  background:linear-gradient(180deg, var(--navy-deep) 0%, #0d1c3c 45%, #0a1730 100%);
+  min-height:100vh;
+  font-family:'Inter',sans-serif;
+  color:var(--text-hi);
+}
