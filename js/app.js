@@ -6,6 +6,7 @@ const dropzone = document.getElementById('dropzone');
 const fileInput = document.getElementById('fileInput');
 const filesList = document.getElementById('filesList');
 const custNameInput = document.getElementById('custName');
+const custPhoneInput = document.getElementById('custPhone');
 const amountPaidInput = document.getElementById('amountPaid');
 const collectLater = document.getElementById('collectLater');
 const submitBtn = document.getElementById('submitBtn');
@@ -82,11 +83,29 @@ filesList.addEventListener('change', e => {
   }
 });
 
-custNameInput.addEventListener('input', () => {
-  accountLocked = false;
+custNameInput.addEventListener('input', () => recalcAll());
+
+// লগইন করা থাকলে নাম অ্যাকাউন্ট থেকে আসবে, ফোন নম্বর লাগবে না
+function applySession(){
+  const s = getSession();
+  custNameInput.readOnly = !!s;
+  if (s) custNameInput.value = s.name;
+  document.getElementById('phoneField').classList.toggle('hidden', !!s);
   recalcAll();
-  lookupBalance();
-});
+}
+
+// Sheet-এ নাম বা পাসওয়ার্ড বদলেছে কিনা দেখা
+async function refreshSession(){
+  const s = getSession();
+  if (!s) return;
+  try{
+    const r = await customerApi({action: 'myAccount', token: s.token});
+    if (!getSession() || getSession().token !== s.token) return;
+    if (r.status === 'ok') saveSession(r);
+    else if (r.code === 'BAD_SESSION'){ clearSession(); custNameInput.value = ''; }
+    applySession();
+  }catch(err){ console.error(err); }
+}
 
 // Amount Paid: ডিফল্ট 0, শুধু সংখ্যা (ও একটি দশমিক বিন্দু) লেখা যাবে
 function getAmountPaid(){
@@ -103,7 +122,6 @@ amountPaidInput.addEventListener('input', () => {
   v = v.replace(/^0+(?=\d)/, '');          // 05 → 5
   amountPaidInput.value = v;
   updateSubmitState(filesData.length > 0 && filesData.every(f => f.ready), currentTotal);
-  renderLiveAccount();
 });
 
 amountPaidInput.addEventListener('blur', () => {
@@ -112,15 +130,15 @@ amountPaidInput.addEventListener('blur', () => {
 
 function resetForm(){
   custNameInput.value = '';
+  custPhoneInput.value = '';
   amountPaidInput.value = '0';
   collectLater.checked = false;
   filesData = [];
   filesList.innerHTML = '';
-  recalcAll();
+  applySession();
 }
 
 clearBtn.addEventListener('click', () => {
-  accountLocked = false; prevDue = 0; prevFound = false;
   resetForm();
   statusBox.classList.remove('show');
   waOrderBox.classList.remove('show'); accountBox.classList.remove('show');
@@ -129,11 +147,20 @@ clearBtn.addEventListener('click', () => {
 submitBtn.addEventListener('click', async () => {
   if (submitBtn.disabled) return;
 
+  const session = getSession();
+  const phoneText = session ? '' : custPhoneInput.value.trim();
+  if (phoneText && !normPhone(phoneText)){
+    setStatus('error', 'ফোন নম্বর ঠিক নয় (01XXXXXXXXX)। ঠিক করুন বা ঘরটা ফাঁকা রাখুন।');
+    return;
+  }
+
   let name = custNameInput.value.trim();
   if (collectLater.checked) name = '[পরে নিবে] ' + name;
 
   const payload = {
     name: name,
+    token: session ? session.token : '',
+    phone: normPhone(phoneText),
     amountPaid: getAmountPaid(),
     totalBill: currentTotal.toFixed(1),
     files: filesData.map(e => ({
@@ -172,11 +199,18 @@ submitBtn.addEventListener('click', async () => {
     if (result.status === 'ok') {
       setStatus('success', `অর্ডার সফলভাবে জমা হয়েছে!`);
       submitBtn.textContent = 'Submit Order →';
-      showAccount(orderSnapshot, result.previousDue || 0);
-      showWhatsAppOrder(orderSnapshot, result.fileUrls || [], result.previousDue || 0);
-      accountLocked = true;   // submit-এর পর final হিসাব দেখানো থাকবে
-      prevDue = 0; prevFound = false;
+      const previousDue = session ? Number(result.previousDue) || 0 : null;
+      if (result.name) orderSnapshot.name = result.name;
       resetForm();
+      showAccount(orderSnapshot, previousDue, result.accountCreated
+        ? 'আপনার অ্যাকাউন্ট খোলা হয়েছে। ফোন নম্বর ও পাসওয়ার্ড 01234 দিয়ে লগ ইন করে সব হিসাব দেখুন।'
+        : session ? '' : 'আগের হিসাব দেখতে লগ ইন করুন।');
+      showWhatsAppOrder(orderSnapshot, result.fileUrls || [], previousDue);
+    } else if (result.code === 'BAD_SESSION') {
+      clearSession(); custNameInput.value = '';
+      applySession();
+      submitBtn.textContent = 'Submit Order →';
+      setStatus('error', 'লগইনের মেয়াদ শেষ। আবার লগ ইন করে সাবমিট করুন, অথবা নাম লিখে সাবমিট করুন।');
     } else {
       throw new Error(result.message || 'unknown error');
     }
@@ -188,4 +222,5 @@ submitBtn.addEventListener('click', async () => {
   }
 });
 
-recalcAll();
+applySession();
+refreshSession();

@@ -8,8 +8,12 @@
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/base.css">
 <link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/menu.css">
 </head>
 <body>
+<button class="menu-btn" id="menuBtn" aria-label="মেনু">⋮</button>
+<div class="drawer-shade" id="drawerShade"></div>
+<nav class="drawer" id="drawer"></nav>
 <div class="wrap">
 
   <div class="hero">
@@ -25,6 +29,11 @@
 
     <label for="custName">Customer Name</label>
     <input type="text" id="custName" placeholder="আপনার নাম লিখুন">
+
+    <div id="phoneField">
+      <label for="custPhone" style="margin-top:14px;">ফোন নম্বর (না দিলেও চলবে)</label>
+      <input type="tel" id="custPhone" autocomplete="tel" placeholder="01XXXXXXXXX">
+    </div>
 
     <div class="dropzone" id="dropzone">
       <span class="ic">📄</span>
@@ -67,7 +76,7 @@
 
   <div class="account-box" id="accountBox">
     <div class="ah">আপনার হিসাব <span id="accName"></span></div>
-    <div class="acc-row"><span id="accPrevLabel">আগের বাকি</span><b id="accPrev">৳0.0</b></div>
+    <div class="acc-row" id="accPrevRow"><span id="accPrevLabel">আগের বাকি</span><b id="accPrev">৳0.0</b></div>
     <div class="acc-row"><span>আজকের বিল</span><b id="accToday">৳0.0</b></div>
     <div class="acc-row"><span>আজ পরিশোধ</span><b id="accPaid">৳0.0</b></div>
     <div class="acc-row grand"><span id="accGrandLabel">সর্বমোট বাকি</span><b id="accGrand">৳0.0</b></div>
@@ -99,6 +108,8 @@
 <script src="js/config.js"></script>
 <script src="js/utils.js"></script>
 <script src="js/database.js"></script>
+<script src="js/session.js"></script>
+<script src="js/menu.js"></script>
 <script src="js/pricing.js"></script>
 <script src="js/files.js"></script>
 <script src="js/account.js"></script>

@@ -42,7 +42,8 @@ $('pinInput').addEventListener('keydown', e => { if (e.key === 'Enter') $('login
 
 $('logoutBtn').addEventListener('click', () => {
   try{ sessionStorage.removeItem('hp_pin'); }catch(e){}
-  PIN = ''; D = null;
+  PIN = ''; D = null; payName = ''; viewName = ''; viewCache = null;
+  closeAdd();
   $('pinInput').value = '';
   setLoginMsg('');
   $('appView').classList.add('hidden');

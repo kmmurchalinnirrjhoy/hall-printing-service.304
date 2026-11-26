@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>আমার হিসাব — Hall Printing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/menu.css">
+<link rel="stylesheet" href="css/account.css">
+<link rel="stylesheet" href="css/statement.css">
+</head>
+<body>
+<button class="menu-btn" id="menuBtn" aria-label="মেনু">⋮</button>
+<div class="drawer-shade" id="drawerShade"></div>
+<nav class="drawer" id="drawer"></nav>
+
+<div class="wrap">
+  <h1>Hall Printing Service</h1>
+
+  <!-- ---- সাইন আপ ---- -->
+  <form class="card hidden" id="signupView" novalidate>
+    <h2>সাইন আপ</h2>
+    <label for="suName">নাম</label>
+    <input type="text" id="suName" autocomplete="name" placeholder="আপনার নাম লিখুন">
+    <label for="suPhone">ফোন নম্বর</label>
+    <input type="tel" id="suPhone" autocomplete="tel" placeholder="01XXXXXXXXX">
+    <div class="hint">আপনার পাসওয়ার্ড হবে <b>01234</b>, পরে নিজের মতো বদলাতে পারবেন।</div>
+    <button class="btn-main">অ্যাকাউন্ট খুলুন</button>
+    <div class="msg"></div>
+    <a class="link" href="#login">অ্যাকাউন্ট আছে? লগ ইন করুন</a>
+  </form>
+
+  <!-- ---- লগ ইন ---- -->
+  <form class="card hidden" id="loginView" novalidate>
+    <h2>লগ ইন</h2>
+    <label for="liPhone">ফোন নম্বর</label>
+    <input type="tel" id="liPhone" autocomplete="username" placeholder="01XXXXXXXXX">
+    <label for="liPass">পাসওয়ার্ড</label>
+    <input type="password" id="liPass" autocomplete="current-password" placeholder="পাসওয়ার্ড">
+    <div class="hint">প্রথমবার পাসওয়ার্ড <b>01234</b></div>
+    <button class="btn-main">লগ ইন</button>
+    <div class="msg"></div>
+    <a class="link" id="forgotLink" href="#" target="_blank" rel="noopener">পাসওয়ার্ড ভুলে গেছেন? WhatsApp-এ জানান</a>
+    <a class="link" href="#signup">নতুন অ্যাকাউন্ট খুলুন</a>
+  </form>
+
+  <!-- ---- পাসওয়ার্ড বদল ---- -->
+  <form class="card hidden" id="passwordView" novalidate>
+    <h2>পাসওয়ার্ড বদলান</h2>
+    <label for="pwOld">এখনকার পাসওয়ার্ড</label>
+    <input type="password" id="pwOld" autocomplete="current-password">
+    <label for="pwNew">নতুন পাসওয়ার্ড (অন্তত ৪ অক্ষর)</label>
+    <input type="password" id="pwNew" autocomplete="new-password">
+    <label for="pwAgain">নতুন পাসওয়ার্ড আবার</label>
+    <input type="password" id="pwAgain" autocomplete="new-password">
+    <button class="btn-main">সেভ করুন</button>
+    <div class="msg"></div>
+    <a class="link" href="#account">হিসাবে ফিরে যান</a>
+  </form>
+
+  <!-- ---- হিসাব ---- -->
+  <div class="hidden" id="accountView">
+    <div class="notice hidden" id="defaultNote">আপনি এখনো শুরুর পাসওয়ার্ড ব্যবহার করছেন। নিরাপত্তার জন্য <a href="#password">বদলে নিতে পারেন</a>।</div>
+    <div class="msg" id="accountMsg"></div>
+    <div id="statement"></div>
+    <div class="actions">
+      <button type="button" id="reloadBtn">↻ রিফ্রেশ</button>
+      <a href="index.html">নতুন অর্ডার</a>
+    </div>
+  </div>
+</div>
+
+<script src="js/config.js"></script>
+<script src="js/utils.js"></script>
+<script src="js/database.js"></script>
+<script src="js/session.js"></script>
+<script src="js/menu.js"></script>
+<script src="js/statement.js"></script>
+<script src="js/myaccount.js"></script>
+</body>
+</html>

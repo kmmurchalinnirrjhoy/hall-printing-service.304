@@ -1,0 +1,31 @@
+/* =====================================================
+   বাম পাশের মেনু
+   ===================================================== */
+
+.menu-btn{
+  position:absolute; top:14px; left:14px; z-index:6; width:40px; height:40px; border-radius:11px;
+  background:var(--card); border:1px solid var(--line); color:var(--gold-1);
+  font-size:22px; font-weight:800; line-height:1; cursor:pointer;
+}
+.drawer-shade{
+  position:fixed; inset:0; z-index:30; background:rgba(3,8,20,.65);
+  opacity:0; visibility:hidden; transition:.2s;
+}
+.drawer-shade.open{opacity:1; visibility:visible;}
+.drawer{
+  position:fixed; top:0; bottom:0; left:0; z-index:31; width:min(290px, 82vw); overflow-y:auto;
+  background:var(--card); border-right:1px solid var(--line); border-radius:0 18px 18px 0;
+  transform:translateX(-100%); visibility:hidden; transition:.22s;
+}
+.drawer.open{transform:none; visibility:visible;}
+.drawer-head{
+  padding:24px 20px 16px; border-bottom:1px solid var(--line);
+  font-family:'Baloo 2',sans-serif; font-weight:800; font-size:20px; color:var(--gold-1);
+}
+.drawer-head small{display:block; font-family:'Inter',sans-serif; font-size:12.5px; font-weight:600; color:var(--text-lo); margin-top:2px;}
+.drawer a{
+  display:flex; align-items:center; gap:14px; margin:6px 10px; padding:12px; border-radius:11px;
+  color:var(--text-hi); text-decoration:none; font-size:14px; font-weight:600;
+}
+.drawer a:hover, .drawer a:focus{background:var(--navy-mid);}
+.drawer hr{border:none; border-top:1px solid var(--line); margin:8px 0;}

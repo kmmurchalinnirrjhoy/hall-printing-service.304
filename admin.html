@@ -9,6 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/base.css">
 <link rel="stylesheet" href="css/admin.css">
+<link rel="stylesheet" href="css/statement.css">
 </head>
 <body>
 
@@ -17,10 +18,11 @@
   <h1>Hall Printing — Admin</h1>
   <p>শুধু মালিকের জন্য। PIN দিন।</p>
   <div class="box">
-    <input type="password" id="pinInput" class="pin-input" inputmode="numeric" autocomplete="off" placeholder="••••" maxlength="12">
+    <input type="password" id="pinInput" class="pin-input" autocomplete="off" placeholder="••••••••" maxlength="40">
     <button class="btn-main" id="loginBtn">প্রবেশ করুন</button>
     <div class="msg" id="loginMsg"></div>
   </div>
+  <a class="back-site" href="index.html">← ওয়েবসাইটে ফিরে যান</a>
 </div>
 
 <!-- ============ APP ============ -->
@@ -31,6 +33,7 @@
       <div class="upd" id="updTime"></div>
     </div>
     <div class="tb-actions">
+      <button class="icon-btn add" id="addBtn">＋ এড</button>
       <button class="icon-btn" id="refreshBtn">↻ রিফ্রেশ</button>
       <button class="icon-btn" id="logoutBtn">বের হন</button>
     </div>
@@ -77,6 +80,7 @@
 
   <!-- ---- কাস্টমার ---- -->
   <div id="tab-customers" class="hidden">
+    <div id="custTools">
     <div style="margin-top:14px;"><input type="search" id="custSearch" placeholder="নাম দিয়ে খুঁজুন…"></div>
     <div class="chips" id="custChips">
       <button data-f="all" class="active">সব</button>
@@ -90,14 +94,49 @@
       </select>
     </div>
     <div class="sumline" id="custSum"></div>
+    </div>
     <div id="list-customers"></div>
   </div>
+</div>
+
+<!-- ============ ফাইল ছাড়া নতুন এন্ট্রি ============ -->
+<div class="modal hidden" id="addModal">
+  <form class="dialog" id="addForm" novalidate>
+    <h3>নতুন এন্ট্রি (ফাইল ছাড়া)</h3>
+
+    <label for="addName">নাম</label>
+    <input type="text" id="addName" autocomplete="off" placeholder="নাম লিখুন">
+    <div class="suggest hidden" id="addSuggest"></div>
+    <div class="hint" id="addNameHint"></div>
+
+    <label for="addPages">পেপার কয়টা</label>
+    <input type="text" id="addPages" inputmode="numeric" autocomplete="off" placeholder="0">
+
+    <div class="two">
+      <div>
+        <label for="addBill">বিল কত (৳)</label>
+        <input type="text" id="addBill" inputmode="decimal" autocomplete="off" placeholder="0">
+      </div>
+      <div>
+        <label for="addPaid">কত টাকা দিল (৳)</label>
+        <input type="text" id="addPaid" inputmode="decimal" autocomplete="off" placeholder="0">
+      </div>
+    </div>
+
+    <div class="msg" id="addMsg"></div>
+    <div class="pa">
+      <button type="button" class="btn-open" id="addCancel">বাতিল</button>
+      <button type="submit" class="btn-done" id="addSave">সেভ করুন</button>
+    </div>
+  </form>
 </div>
 
 <script src="js/config.js"></script>
 <script src="js/utils.js"></script>
 <script src="js/database.js"></script>
+<script src="js/statement.js"></script>
 <script src="js/admin.js"></script>
+<script src="js/manual.js"></script>
 <script src="js/auth.js"></script>
 </body>
 </html>

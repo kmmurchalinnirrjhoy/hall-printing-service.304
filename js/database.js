@@ -2,12 +2,6 @@
    সার্ভার (Google Sheet) এর সাথে সব যোগাযোগ
    ===================================================== */
 
-// নাম অনুযায়ী আগের হিসাব
-async function fetchBalance(name){
-  const res = await fetch(APPS_SCRIPT_URL + '?action=balance&name=' + encodeURIComponent(name));
-  return res.json();
-}
-
 // নতুন অর্ডার জমা
 async function sendOrder(payload){
   const res = await fetch(APPS_SCRIPT_URL, {
@@ -17,6 +11,9 @@ async function sendOrder(payload){
   });
   return res.json();
 }
+
+// কাস্টমার action (সাইন আপ, লগ ইন, হিসাব, পাসওয়ার্ড)
+const customerApi = payload => sendOrder(payload);
 
 // অ্যাডমিন action (PIN সহ)
 async function api(payload){

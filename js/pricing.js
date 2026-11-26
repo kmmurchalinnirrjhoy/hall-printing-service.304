@@ -77,7 +77,6 @@ function recalcAll(){
   currentTotal = grandTotal;
   rTotal.textContent = `৳${grandTotal.toFixed(2)}`;
   updateSubmitState(allReady, grandTotal);
-  renderLiveAccount();
 }
 
 function updateSubmitState(allReady, total){
