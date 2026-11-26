@@ -9,15 +9,15 @@ function buildMenu(){
 
   $('drawer').innerHTML =
     `<div class="drawer-head">Hall Printing Service${s ? `<small>${esc(s.name)}</small>` : ''}</div>` +
-    item('index.html', '🖨️', 'অর্ডার করুন') +
+    item('./', '🖨️', 'অর্ডার করুন') +
     (s
-      ? item('account.html#account', '📒', 'আমার হিসাব') +
-        item('account.html#password', '🔑', 'পাসওয়ার্ড বদলান') +
+      ? item('account#account', '📒', 'আমার হিসাব') +
+        item('account#password', '🔑', 'পাসওয়ার্ড বদলান') +
         item('#', '↩️', 'লগ আউট', 'menuLogout')
-      : item('account.html#signup', '📝', 'সাইন আপ') +
-        item('account.html#login', '👤', 'লগ ইন')) +
+      : item('account#signup', '📝', 'সাইন আপ') +
+        item('account#login', '👤', 'লগ ইন')) +
     '<hr>' +
-    item('admin.html', '⚙️', 'অ্যাডমিন');
+    item('admin', '⚙️', 'অ্যাডমিন');
 }
 
 function setMenu(open){
@@ -35,7 +35,7 @@ $('drawer').addEventListener('click', e => {
   if (a.id === 'menuLogout'){
     e.preventDefault();
     clearSession();
-    location.href = 'index.html';
+    location.href = './';
     return;
   }
   setMenu(false);

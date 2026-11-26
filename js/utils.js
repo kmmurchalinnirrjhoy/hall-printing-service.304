@@ -29,3 +29,8 @@ function loadImage(src){
     img.src = src;
   });
 }
+
+// ঠিকানা থেকে .html সরানো (GitHub Pages .html ছাড়াই পেজ খোলে)
+if (location.hostname.endsWith('.github.io') && location.pathname.endsWith('.html')){
+  history.replaceState(null, '', location.pathname.replace(/(index)?\.html$/, '') + location.search + location.hash);
+}
