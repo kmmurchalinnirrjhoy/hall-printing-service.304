@@ -3,6 +3,10 @@
    balance: ঋণাত্মক = বাকি (লাল), ধনাত্মক = অগ্রিম (সবুজ)
    ===================================================== */
 
+function loadingHTML(text){
+  return `<div class="loading"><i class="spinner"></i>${esc(text)}</div>`;
+}
+
 function statementHTML(s){
   const money = v => Number(v || 0).toLocaleString('en-US', {maximumFractionDigits: 2});
   const cls = v => v < 0 ? 'neg' : v > 0 ? 'pos' : '';

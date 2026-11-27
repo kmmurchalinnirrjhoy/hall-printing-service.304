@@ -11,6 +11,27 @@ const WHATSAPP_NUMBER = "8801521794786";
 // ---- Facebook মেসেজ লিংক ----
 const FACEBOOK_URL = "https://www.facebook.com/messages/e2ee/t/9595486410564983";
 
+// ---- বাকি টাকার তাগাদা মেসেজ (WhatsApp) ----
+// লেখা ইচ্ছামতো বদলান। {name} {due} {phone} {link} নিজে থেকে বসবে, এগুলোর বানান বদলাবেন না।
+// পুরো লেখা ` ` চিহ্নের ভেতরে রাখবেন।
+
+// যার অ্যাকাউন্ট আছে
+const REMINDER_MESSAGE = `আসসালামু আলাইকুম {name},
+Hall Printing Service এ আপনার বাকি {due}।
+
+সব হিসাব দেখতে লগ ইন করুন:
+{link}
+
+ফোন নম্বর: {phone}
+পাসওয়ার্ড না বদলে থাকলে: 01234`;
+
+// যার অ্যাকাউন্ট নেই
+const REMINDER_MESSAGE_NO_ACCOUNT = `আসসালামু আলাইকুম {name},
+Hall Printing Service এ আপনার বাকি {due}।
+
+নিজের হিসাব দেখতে সাইন আপ করুন:
+{link}`;
+
 // ---- Print type catalogue (single source of truth for every file card) ----
 const PRINT_TYPES = [
   { value:"B&W Single (2.5 tk/page)",        min:2.5, max:7,  unit:'page',  mode:'single' },

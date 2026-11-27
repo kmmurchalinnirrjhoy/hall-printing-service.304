@@ -22,6 +22,7 @@ HallPrinting/
 │   ├── app.js        কাস্টমার পেজের বাটন ও সাবমিট
 │   ├── session.js    কাস্টমার লগইন মনে রাখা
 │   ├── menu.js       বাম পাশের মেনু
+│   ├── progress.js   অর্ডার পাঠানোর অগ্রগতি
 │   ├── statement.js  হিসাবের টেবিল
 │   ├── myaccount.js  অ্যাকাউন্ট পেজ
 │   ├── auth.js       অ্যাডমিন লগইন
@@ -35,7 +36,7 @@ HallPrinting/
 ## কোথায় কী বদলাবেন
 | কাজ | ফাইল |
 |---|---|
-| প্রিন্টের দাম, WhatsApp নম্বর, API URL | `js/config.js` |
+| প্রিন্টের দাম, WhatsApp নম্বর, API URL, তাগাদা মেসেজ | `js/config.js` |
 | রং | `css/base.css` |
 | ডিজাইন | `css/style.css`, `css/admin.css` (PC এর অংশ ফাইলের নিচে `@media`) |
 | লেখা / বাটন | `index.html`, `admin.html` |

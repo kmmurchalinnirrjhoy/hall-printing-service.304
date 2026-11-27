@@ -32,9 +32,9 @@ function sessionExpired(){
 async function loadAccount(){
   const seq = ++loadSeq;
   const msg = $('accountMsg');
-  $('statement').innerHTML = '';
+  $('statement').innerHTML = loadingHTML('হিসাব আনা হচ্ছে…');
   $('defaultNote').classList.add('hidden');
-  setMsg(msg, 'হিসাব আনা হচ্ছে…');
+  setMsg(msg, '');
   try{
     const token = getSession().token;
     const r = await customerApi({action: 'myAccount', token});
@@ -45,10 +45,10 @@ async function loadAccount(){
       $('statement').innerHTML = statementHTML(r.data);
       $('defaultNote').classList.toggle('hidden', !r.isDefault);
     } else if (r.code === 'BAD_SESSION') sessionExpired();
-    else setMsg(msg, r.message || 'সমস্যা হয়েছে', 'err');
+    else { $('statement').innerHTML = ''; setMsg(msg, r.message || 'সমস্যা হয়েছে', 'err'); }
   }catch(err){
     console.error(err);
-    if (seq === loadSeq) setMsg(msg, 'সংযোগে সমস্যা হয়েছে। রিফ্রেশ করুন।', 'err');
+    if (seq === loadSeq){ $('statement').innerHTML = ''; setMsg(msg, 'সংযোগে সমস্যা হয়েছে। রিফ্রেশ করুন।', 'err'); }
   }
 }
 

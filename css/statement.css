@@ -16,6 +16,9 @@
 .st-table td{padding:9px 10px; border-top:1px solid var(--line); text-align:right;}
 .st-table th:nth-child(-n+2), .st-table td:nth-child(-n+2){text-align:left;}
 .st-empty{text-align:center; color:var(--text-lo); font-size:13.5px; padding:30px 10px;}
+.loading{display:flex; flex-direction:column; align-items:center; gap:12px; padding:34px 10px; color:var(--text-lo); font-size:13.5px;}
+.spinner{width:34px; height:34px; border-radius:50%; border:3px solid var(--line); border-top-color:var(--gold-2); animation:spin .8s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
 .neg{color:var(--danger);}
 .pos{color:var(--ok);}
 .st-table td.neg, .st-table td.pos{font-weight:700;}

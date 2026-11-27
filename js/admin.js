@@ -200,7 +200,8 @@ function renderDetail(c){
       ${c.name === payName ? `<div><div class="cn">${esc(c.name)}</div></div>${payFormHTML(c)}`
         : `<button class="btn-pay" data-name="${esc(c.name)}">টাকা জমা / এডিট</button>`}
     </div>
-    <div id="custStatement">${cached ? statementHTML(viewCache.statement) : '<div class="st-empty">হিসাব আনা হচ্ছে…</div>'}</div>`;
+    <div id="remindBox">${cached ? reminderHTML(viewCache.statement) : ''}</div>
+    <div id="custStatement">${cached ? statementHTML(viewCache.statement) : loadingHTML('হিসাব আনা হচ্ছে…')}</div>`;
   updatePayPreview();
   if (!cached) loadStatement(c.name);
 }
@@ -216,6 +217,25 @@ async function loadStatement(name){
   if (D !== data || viewName !== name) return;      // এর মধ্যে অন্য পেজে গেছে
   $('custStatement').innerHTML = error
     ? `<div class="st-empty">${esc(error)}</div>` : statementHTML(viewCache.statement);
+  $('remindBox').innerHTML = error ? '' : reminderHTML(viewCache.statement);
+}
+
+/* ---------- বাকি টাকার তাগাদা (শুধু বাকি থাকলে বাটন) ---------- */
+function reminderHTML(s){
+  const balance = s.totals.balance;               // ঋণাত্মক = বাকি
+  if (balance >= 0) return '';
+  const phone = s.phone || '';
+  const values = {
+    name: s.name,
+    due: tk(-balance),
+    phone,
+    link: new URL(phone ? 'account#login' : 'account#signup', location.href).href
+  };
+  const text = (phone ? REMINDER_MESSAGE : REMINDER_MESSAGE_NO_ACCOUNT)
+    .replace(/\{(name|due|phone|link)\}/g, (m, k) => values[k]);
+  // নম্বর না থাকলে WhatsApp-এ কাকে পাঠাবেন বেছে নিতে হবে
+  const url = `https://wa.me/${phone ? '88' + phone : ''}?text=${encodeURIComponent(text)}`;
+  return `<a class="btn-remind" href="${esc(url)}" target="_blank" rel="noopener">WhatsApp-এ তাগাদা (বাকি ${tk(-balance)})</a>`;
 }
 
 /* ---------- টাকা জমা (শেষ প্রিন্টের row-তে) ---------- */

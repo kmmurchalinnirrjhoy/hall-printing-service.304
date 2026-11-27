@@ -139,10 +139,13 @@ function resetForm(){
 }
 
 clearBtn.addEventListener('click', () => {
+  lastOrder = { body: '', id: '' };
   resetForm();
   statusBox.classList.remove('show');
   waOrderBox.classList.remove('show'); accountBox.classList.remove('show');
 });
+
+let lastOrder = { body: '', id: '' };
 
 submitBtn.addEventListener('click', async () => {
   if (submitBtn.disabled) return;
@@ -191,13 +194,23 @@ submitBtn.addEventListener('click', async () => {
 
   submitBtn.disabled = true;
   submitBtn.textContent = 'পাঠানো হচ্ছে…';
-  setStatus('sending', 'অর্ডার পাঠানো হচ্ছে…');
+
+  // একই অর্ডার আবার পাঠালে একই আইডি যাবে, তাই সার্ভারে দুইবার জমা হবে না
+  const body = JSON.stringify(payload);
+  if (body !== lastOrder.body) lastOrder = { body, id: Date.now().toString(36) + Math.random().toString(36).slice(2) };
+  payload.requestId = lastOrder.id;
+
+  startProgress(filesData.length, filesData.reduce((s, e) => s + e.file.size, 0));
+  const abort = new AbortController();
+  const timeout = setTimeout(() => abort.abort(), SEND_TIMEOUT);
 
   try {
-    const result = await sendOrder(payload);
+    const result = await sendOrder(payload, abort.signal);
+    stopProgress();
 
     if (result.status === 'ok') {
-      setStatus('success', `অর্ডার সফলভাবে জমা হয়েছে!`);
+      lastOrder = { body: '', id: '' };
+      setStatus('success', `✓ অর্ডার সফলভাবে জমা হয়েছে!`);
       submitBtn.textContent = 'Submit Order →';
       const previousDue = session ? Number(result.previousDue) || 0 : null;
       if (result.name) orderSnapshot.name = result.name;
@@ -216,9 +229,12 @@ submitBtn.addEventListener('click', async () => {
     }
   } catch (err) {
     console.error(err);
-    setStatus('error', 'সাবমিট করতে সমস্যা হয়েছে। আবার চেষ্টা করুন।');
+    stopProgress();
+    showFailure();
     submitBtn.textContent = 'Submit Order →';
     submitBtn.disabled = false;
+  } finally {
+    clearTimeout(timeout);
   }
 });
 

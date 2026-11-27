@@ -82,5 +82,5 @@ function recalcAll(){
 function updateSubmitState(allReady, total){
   const hasName = custNameInput.value.trim().length > 0;
   const hasFiles = filesData.length > 0;
-  submitBtn.disabled = !(allReady && hasName && hasFiles && total > 0);
+  submitBtn.disabled = sending || !(allReady && hasName && hasFiles && total > 0);
 }
