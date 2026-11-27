@@ -31,8 +31,8 @@
       '<hr><div class="drawer-label">যোগাযোগ</div>' +
       outside(`https://wa.me/${WHATSAPP_NUMBER}`, '💬', 'WhatsApp') +
       outside(FACEBOOK_URL, '✉️', 'Facebook মেসেজ') +
-      '<hr>' +
-      item('admin', '⚙️', 'অ্যাডমিন');
+      // কাস্টমার লগইন থাকলে অ্যাডমিন অপশন দেখাবে না
+      (s ? '' : '<hr>' + item('admin', '⚙️', 'অ্যাডমিন'));
   }
 
   function setMenu(open){
