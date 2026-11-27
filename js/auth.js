@@ -7,7 +7,16 @@ let PIN = '';
 /* ---------- Login ---------- */
 function setLoginMsg(t, err){ const m = $('loginMsg'); m.textContent = t || ''; m.className = 'msg' + (err ? ' err' : ''); }
 
+// কাস্টমার লগইন থাকলে অ্যাডমিনে ঢোকা যাবে না: আগে লগ আউট করতে হবে
+function blockedByCustomer(){
+  if (!getSession()) return false;
+  try{ sessionStorage.removeItem('hp_pin'); }catch(e){}
+  location.replace('account');
+  return true;
+}
+
 async function login(pin){
+  if (blockedByCustomer()) return;
   PIN = pin;
   $('loginBtn').disabled = true;
   setLoginMsg('চেক করা হচ্ছে…');
@@ -51,8 +60,12 @@ $('logoutBtn').addEventListener('click', () => {
   $('loginView').classList.remove('hidden');
 });
 
+window.addEventListener('pageshow', e => { if (e.persisted) blockedByCustomer(); });
+window.addEventListener('storage', e => { if (e.key === 'hp_session') blockedByCustomer(); });
+
 /* ---------- Auto-login (একই ট্যাবে রিফ্রেশ দিলে আবার PIN লাগবে না) ---------- */
 (function(){
+  if (blockedByCustomer()) return;
   let saved = '';
   try{ saved = sessionStorage.getItem('hp_pin') || ''; }catch(e){}
   if (saved) login(saved);
