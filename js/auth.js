@@ -18,14 +18,12 @@ async function login(pin){
       D = r.data;
       $('loginView').classList.add('hidden');
       $('appView').classList.remove('hidden');
-      document.body.classList.add('has-menu');
       renderAll();
     } else {
       PIN = '';
       try{ sessionStorage.removeItem('hp_pin'); }catch(e){}
       $('loginView').classList.remove('hidden');
       $('appView').classList.add('hidden');
-      document.body.classList.remove('has-menu');
       setLoginMsg(r.message || 'ভুল হয়েছে', true);
     }
   }catch(err){
@@ -47,7 +45,6 @@ $('logoutBtn').addEventListener('click', () => {
   PIN = ''; D = null; payName = ''; viewName = ''; viewCache = null;
   closeAdd();
   showTab('summary');
-  document.body.classList.remove('has-menu');
   $('pinInput').value = '';
   setLoginMsg('');
   $('appView').classList.add('hidden');

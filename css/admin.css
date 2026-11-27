@@ -10,6 +10,7 @@ button{font-family:inherit;}
 .login{max-width:360px; margin:0 auto; padding:90px 16px 0; text-align:center;}
 .login h1{font-family:'Baloo 2',sans-serif; font-size:26px; margin:0 0 4px; color:var(--gold-1);}
 .login h1{margin-bottom:22px;}
+.login .drawer{text-align:left;}
 .login .box{background:var(--card); border:1px solid var(--line); border-radius:18px; padding:20px;}
 input[type=text], input[type=password], input[type=search], select{
   width:100%; padding:12px 13px; border-radius:11px; background:var(--field);
@@ -162,7 +163,6 @@ input:focus, select:focus{border-color:var(--gold-2);}
 .open-st{cursor:pointer;}
 #list-customers.detail{display:block;}
 .btn-back{margin-top:12px; color:var(--gold-2);}
-.back-site{display:block; margin-top:16px; font-size:13px; color:#7bb2ff; text-decoration:none;}
 
 /* ---------- টাকা জমা ---------- */
 .crow > div:first-child{flex:1; min-width:0;}

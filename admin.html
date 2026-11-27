@@ -12,17 +12,21 @@
 <link rel="stylesheet" href="css/menu.css">
 <link rel="stylesheet" href="css/statement.css">
 </head>
-<body>
+<body class="has-menu">
 
 <!-- ============ LOGIN ============ -->
 <div class="login" id="loginView">
+  <!-- লগইনের আগে ওয়েবসাইটের সাধারণ মেনু -->
+  <button class="menu-btn" id="siteMenuBtn" aria-label="মেনু"><span></span></button>
+  <div class="drawer-shade" id="siteDrawerShade"></div>
+  <nav class="drawer" id="siteDrawer"></nav>
+
   <h1>Hall Printing — Admin</h1>
   <div class="box">
     <input type="password" id="pinInput" class="pin-input" autocomplete="off" placeholder="••••••••" maxlength="40">
     <button class="btn-main" id="loginBtn">প্রবেশ করুন</button>
     <div class="msg" id="loginMsg"></div>
   </div>
-  <a class="back-site" href="./">← ওয়েবসাইটে ফিরে যান</a>
 </div>
 
 <!-- ============ APP ============ -->
@@ -137,6 +141,8 @@
 <script src="js/config.js"></script>
 <script src="js/utils.js"></script>
 <script src="js/database.js"></script>
+<script src="js/session.js"></script>
+<script src="js/menu.js"></script>
 <script src="js/statement.js"></script>
 <script src="js/admin.js"></script>
 <script src="js/manual.js"></script>
