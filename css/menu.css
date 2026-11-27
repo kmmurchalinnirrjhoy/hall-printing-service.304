@@ -4,9 +4,16 @@
 
 .menu-btn{
   position:absolute; top:14px; left:14px; z-index:6; width:40px; height:40px; border-radius:11px;
-  background:var(--card); border:1px solid var(--line); color:var(--gold-1);
-  font-size:22px; font-weight:800; line-height:1; cursor:pointer;
+  background:transparent; border:none; cursor:pointer; display:flex; align-items:center; justify-content:center;
 }
+/* তিনটা দাগ ☰ */
+.menu-btn span, .menu-btn span::before, .menu-btn span::after{
+  display:block; width:20px; height:2px; border-radius:2px; background:var(--text-hi);
+}
+.menu-btn span{position:relative;}
+.menu-btn span::before, .menu-btn span::after{content:''; position:absolute; left:0;}
+.menu-btn span::before{top:-6px;}
+.menu-btn span::after{top:6px;}
 .drawer-shade{
   position:fixed; inset:0; z-index:30; background:rgba(3,8,20,.65);
   opacity:0; visibility:hidden; transition:.2s;
@@ -29,3 +36,12 @@
 }
 .drawer a:hover, .drawer a:focus{background:var(--navy-mid);}
 .drawer hr{border:none; border-top:1px solid var(--line); margin:8px 0;}
+.drawer a.active{background:linear-gradient(135deg,var(--gold-1),var(--gold-3)); color:#241300;}
+.drawer-label{padding:4px 22px 0; font-size:11.5px; font-weight:700; color:var(--text-lo);}
+
+/* ===== PC: মেনু সবসময় বাম পাশে খোলা ===== */
+@media (min-width: 900px){
+  body.has-menu{padding-left:250px;}
+  .has-menu .menu-btn, .has-menu .drawer-shade{display:none;}
+  .has-menu .drawer{width:250px; transform:none; visibility:visible; border-radius:0; transition:none;}
+}

@@ -1,11 +1,15 @@
 /* =====================================================
-   বাম পাশের মেনু (⋮)
+   বাম পাশের মেনু (☰)
    ===================================================== */
 
 function buildMenu(){
   const s = getSession();
+  const here = /account(\.html)?$/.test(location.pathname)
+    ? 'account' + location.hash : './';
   const item = (href, icon, text, id) =>
-    `<a href="${href}"${id ? ` id="${id}"` : ''}><span>${icon}</span>${text}</a>`;
+    `<a href="${href}"${id ? ` id="${id}"` : ''}${href === here ? ' class="active"' : ''}><span>${icon}</span>${text}</a>`;
+  const outside = (href, icon, text) =>
+    `<a href="${href}" target="_blank" rel="noopener"><span>${icon}</span>${text}</a>`;
 
   $('drawer').innerHTML =
     `<div class="drawer-head">Hall Printing Service${s ? `<small>${esc(s.name)}</small>` : ''}</div>` +
@@ -16,12 +20,14 @@ function buildMenu(){
         item('#', '↩️', 'লগ আউট', 'menuLogout')
       : item('account#signup', '📝', 'সাইন আপ') +
         item('account#login', '👤', 'লগ ইন')) +
+    '<hr><div class="drawer-label">যোগাযোগ</div>' +
+    outside(`https://wa.me/${WHATSAPP_NUMBER}`, '💬', 'WhatsApp') +
+    outside(FACEBOOK_URL, '✉️', 'Facebook মেসেজ') +
     '<hr>' +
     item('admin', '⚙️', 'অ্যাডমিন');
 }
 
 function setMenu(open){
-  if (open) buildMenu();
   $('drawer').classList.toggle('open', open);
   $('drawerShade').classList.toggle('open', open);
 }
@@ -40,3 +46,7 @@ $('drawer').addEventListener('click', e => {
   }
   setMenu(false);
 });
+
+// PC-তে মেনু সবসময় দেখা যায়, তাই শুরুতেই বানাতে হবে
+window.addEventListener('hashchange', buildMenu);
+buildMenu();

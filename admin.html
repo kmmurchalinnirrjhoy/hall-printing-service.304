@@ -9,6 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/base.css">
 <link rel="stylesheet" href="css/admin.css">
+<link rel="stylesheet" href="css/menu.css">
 <link rel="stylesheet" href="css/statement.css">
 </head>
 <body>
@@ -16,7 +17,6 @@
 <!-- ============ LOGIN ============ -->
 <div class="login" id="loginView">
   <h1>Hall Printing — Admin</h1>
-  <p>শুধু মালিকের জন্য। PIN দিন।</p>
   <div class="box">
     <input type="password" id="pinInput" class="pin-input" autocomplete="off" placeholder="••••••••" maxlength="40">
     <button class="btn-main" id="loginBtn">প্রবেশ করুন</button>
@@ -27,22 +27,26 @@
 
 <!-- ============ APP ============ -->
 <div class="wrap hidden" id="appView">
+  <div class="drawer-shade" id="drawerShade"></div>
+  <nav class="drawer" id="drawer">
+    <div class="drawer-head">Hall Printing Service<small>অ্যাডমিন</small></div>
+    <button class="tab active" data-tab="summary"><span>📊</span>সারাংশ</button>
+    <button class="tab" data-tab="pending"><span>📄</span>বাকি ফাইল<b class="badge" id="pendBadge">0</b></button>
+    <button class="tab" data-tab="customers"><span>👥</span>কাস্টমার</button>
+    <hr>
+    <button class="side-btn" id="logoutBtn"><span>↩️</span>লগ আউট</button>
+  </nav>
+
   <div class="topbar">
-    <div>
+    <button class="menu-btn" id="menuBtn" aria-label="মেনু"><span></span></button>
+    <div class="tb-title">
       <h1>Admin Panel</h1>
       <div class="upd" id="updTime"></div>
     </div>
     <div class="tb-actions">
       <button class="icon-btn add" id="addBtn">＋ এড</button>
       <button class="icon-btn" id="refreshBtn">↻ রিফ্রেশ</button>
-      <button class="icon-btn" id="logoutBtn">বের হন</button>
     </div>
-  </div>
-
-  <div class="tabs">
-    <button class="tab active" data-tab="summary">সারাংশ</button>
-    <button class="tab" data-tab="pending">বাকি ফাইল<span class="badge" id="pendBadge">0</span></button>
-    <button class="tab" data-tab="customers">কাস্টমার</button>
   </div>
 
   <!-- ---- সারাংশ ---- -->
@@ -69,7 +73,6 @@
       <h3>খরচের তালিকা</h3>
       <div id="expList"></div>
     </div>
-    <div class="foot-note" id="footNote"></div>
   </div>
 
   <!-- ---- বাকি ফাইল ---- -->

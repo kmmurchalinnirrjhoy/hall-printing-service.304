@@ -22,10 +22,24 @@ $('refreshBtn').addEventListener('click', async () => {
   b.disabled = false; b.textContent = '↻ রিফ্রেশ';
 });
 
-/* ---------- Tabs ---------- */
+/* ---------- মেনু (সারাংশ / বাকি ফাইল / কাস্টমার) ---------- */
+function setMenu(open){
+  $('drawer').classList.toggle('open', open);
+  $('drawerShade').classList.toggle('open', open);
+}
+$('menuBtn').addEventListener('click', () => setMenu(true));
+$('drawerShade').addEventListener('click', () => setMenu(false));
+document.addEventListener('keydown', e => { if (e.key === 'Escape') setMenu(false); });
+
+function showTab(name){
+  document.querySelectorAll('.tab').forEach(x => x.classList.toggle('active', x.dataset.tab === name));
+  ['summary','pending','customers'].forEach(k => $('tab-' + k).classList.toggle('hidden', k !== name));
+  setMenu(false);
+  window.scrollTo(0, 0);
+}
 document.querySelectorAll('.tab').forEach(t => t.addEventListener('click', () => {
-  document.querySelectorAll('.tab').forEach(x => x.classList.toggle('active', x === t));
-  ['summary','pending','customers'].forEach(k => $('tab-' + k).classList.toggle('hidden', k !== t.dataset.tab));
+  if (t.dataset.tab === 'customers' && viewName && !paySaving){ viewName = ''; payName = ''; renderCustomers(); }
+  showTab(t.dataset.tab);
 }));
 
 /* ---------- Render ---------- */
@@ -80,9 +94,6 @@ function renderSummary(){
       `<div class="row"><span>Business মোট</span><b class="c-hi">${tk(m.expense)}</b></div>` +
       `<div class="row"><span>Personal মোট</span><b class="c-hi">${tk(m.personalExpense)}</b></div>`
     : '<div class="empty" style="padding:10px;">কোনো খরচ পাওয়া যায়নি</div>';
-
-  $('footNote').innerHTML =
-    `Given: <b>${tk(m.given)}</b> (Summary ট্যাবের A8 থেকে) • নিট বাকি (বিল − নগদ): <b>${tk(m.netDue)}</b>`;
 }
 
 function renderPending(){

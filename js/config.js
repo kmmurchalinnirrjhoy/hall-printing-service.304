@@ -8,6 +8,9 @@ const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzUywkEhr3OapHu
 // ---- WhatsApp number (country code সহ, + ছাড়া) ----
 const WHATSAPP_NUMBER = "8801521794786";
 
+// ---- Facebook মেসেজ লিংক ----
+const FACEBOOK_URL = "https://www.facebook.com/messages/e2ee/t/9595486410564983";
+
 // ---- Print type catalogue (single source of truth for every file card) ----
 const PRINT_TYPES = [
   { value:"B&W Single (2.5 tk/page)",        min:2.5, max:7,  unit:'page',  mode:'single' },
