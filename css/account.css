@@ -37,3 +37,7 @@ input:focus{border-color:var(--gold-2);}
   color:var(--text-lo); font-family:'Inter',sans-serif; font-size:13.5px; font-weight:700;
   text-align:center; text-decoration:none; cursor:pointer;
 }
+
+/* ===== হিসাব পেজ স্ক্রিনের মাপে: নাম, বক্স ও শিরোনাম স্থির থাকে ===== */
+.wrap.wide{height:100vh; height:100dvh; min-height:520px; display:flex; flex-direction:column; padding-bottom:14px;}
+.wide #accountView, .wide #statement{flex:1; min-height:0; display:flex; flex-direction:column;}

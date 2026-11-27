@@ -22,7 +22,10 @@ function statementHTML(s){
       <td class="${cls(r.balance)}">${money(r.balance)}</td>
     </tr>`).join('');
 
-  return `<div class="st-name">${esc(s.name)}</div>
+  return `<div class="st-head">
+      <div class="st-name">${esc(s.name)}</div>
+      <div class="st-phone">${esc(s.phone || '')}</div>
+    </div>
     <div class="st-totals">
       ${box('Total Pages', money(t.pages))}
       ${box('Total Orders', money(t.orders))}

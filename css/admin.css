@@ -161,6 +161,8 @@ input:focus, select:focus{border-color:var(--gold-2);}
 
 /* ---------- কাস্টমারের হিসাব পেজ ---------- */
 .open-st{cursor:pointer;}
+/* হিসাব স্ক্রিনের মাপে: নাম, বক্স ও শিরোনাম স্থির, লাইনগুলো scroll */
+#custStatement{display:flex; flex-direction:column; max-height:max(100vh, 480px); max-height:max(100dvh, 480px); padding-bottom:12px;}
 #list-customers.detail{display:block;}
 .btn-back{margin-top:12px; color:var(--gold-2);}
 

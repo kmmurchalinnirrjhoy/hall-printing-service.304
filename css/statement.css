@@ -2,14 +2,17 @@
    হিসাবের টেবিল
    ===================================================== */
 
-.st-name{font-family:'Baloo 2',sans-serif; font-size:22px; font-weight:800; color:var(--gold-1); margin-top:14px;}
-.st-totals{display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:8px;}
-.st-totals div{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:10px 12px;}
-.st-totals small{display:block; font-size:11px; color:var(--text-lo); font-weight:600;}
-.st-totals b{font-family:'Baloo 2',sans-serif; font-size:19px;}
-.st-scroll{overflow-x:auto; margin-top:14px; border:1px solid var(--line); border-radius:12px;}
+.st-head{display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:2px 12px; margin-top:14px;}
+.st-name{font-family:'Baloo 2',sans-serif; font-size:22px; font-weight:800; color:var(--gold-1); overflow-wrap:anywhere;}
+.st-phone{font-size:16px; font-weight:700; color:var(--gold-2); margin-left:auto;}
+.st-totals{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:6px; margin-top:8px;}
+.st-totals div{background:var(--card); border:1px solid var(--line); border-radius:10px; padding:6px 9px;}
+.st-totals small{display:block; font-size:10.5px; color:var(--text-lo); font-weight:600;}
+.st-totals b{display:block; font-family:'Baloo 2',sans-serif; font-size:16px; overflow-wrap:anywhere;}
+/* শুধু হিসাবের লাইনগুলো এই বক্সের ভেতরে scroll হয় */
+.st-scroll{flex:0 1 auto; min-height:0; overflow:auto; margin-top:12px; border:1px solid var(--line); border-radius:12px;}
 .st-table{width:100%; border-collapse:collapse; font-size:12.5px; white-space:nowrap; background:var(--card);}
-.st-table th{background:#2f5be0; color:#fff; padding:10px; text-align:right;}
+.st-table th{position:sticky; top:0; z-index:1; background:#2f5be0; color:#fff; padding:10px; text-align:right;}
 .st-table td{padding:9px 10px; border-top:1px solid var(--line); text-align:right;}
 .st-table th:nth-child(-n+2), .st-table td:nth-child(-n+2){text-align:left;}
 .st-empty{text-align:center; color:var(--text-lo); font-size:13.5px; padding:30px 10px;}
@@ -18,5 +21,8 @@
 .st-table td.neg, .st-table td.pos{font-weight:700;}
 
 @media (min-width: 700px){
-  .st-totals{grid-template-columns:repeat(6,1fr);}
+  .st-totals{grid-template-columns:repeat(6,minmax(0,1fr)); gap:8px;}
+  .st-totals div{padding:10px 12px; border-radius:12px;}
+  .st-totals small{font-size:11px;}
+  .st-totals b{font-size:19px;}
 }
