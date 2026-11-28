@@ -37,6 +37,7 @@
     <button class="tab active" data-tab="summary"><span>📊</span>সারাংশ</button>
     <button class="tab" data-tab="pending"><span>📄</span>বাকি ফাইল<b class="badge" id="pendBadge">0</b></button>
     <button class="tab" data-tab="customers"><span>👥</span>কাস্টমার</button>
+    <button class="tab" data-tab="passwords"><span>🔑</span>পাসওয়ার্ড</button>
     <hr>
     <button class="side-btn" id="logoutBtn"><span>↩️</span>লগ আউট</button>
   </nav>
@@ -104,6 +105,13 @@
     </div>
     <div id="list-customers"></div>
   </div>
+
+  <!-- ---- পাসওয়ার্ড ---- -->
+  <div id="tab-passwords" class="hidden">
+    <div style="margin-top:14px;"><input type="search" id="passSearch" placeholder="নাম বা নম্বর দিয়ে খুঁজুন…"></div>
+    <div class="sumline" id="passSum"></div>
+    <div id="list-passwords"></div>
+  </div>
 </div>
 
 <!-- ============ ফাইল ছাড়া নতুন এন্ট্রি ============ -->
@@ -146,6 +154,7 @@
 <script src="js/statement.js"></script>
 <script src="js/admin.js"></script>
 <script src="js/manual.js"></script>
+<script src="js/passwords.js"></script>
 <script src="js/auth.js"></script>
 </body>
 </html>

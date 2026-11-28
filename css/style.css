@@ -129,26 +129,6 @@ input[readonly]#custName{color:var(--gold-1);}
 .status-box.success{background:rgba(87,217,154,.12); color:var(--ok); border:1px solid rgba(87,217,154,.3);}
 .status-box.error{background:rgba(255,107,107,.12); color:var(--danger); border:1px solid rgba(255,107,107,.3);}
 
-.account-box{
-  display:none; margin-top:14px; background:var(--card); border:1px solid var(--line);
-  border-radius:14px; padding:16px 18px;
-}
-.account-box.show{display:block;}
-.account-box .ah{font-size:13px; font-weight:700; color:var(--gold-1); margin-bottom:10px;}
-.account-box .ah span{color:var(--text-lo); font-weight:600;}
-.acc-row{
-  display:flex; justify-content:space-between; align-items:center;
-  font-size:13px; color:var(--text-lo); padding:8px 0; border-bottom:1px dashed var(--line);
-}
-.acc-row b{color:var(--text-hi); font-weight:700;}
-.acc-row.grand{
-  border-bottom:none; margin-top:4px; padding-top:12px;
-  font-size:14px; font-weight:700; color:var(--text-hi);
-}
-.acc-row.grand b{font-family:'Baloo 2',sans-serif; font-size:20px;}
-.acc-row.grand b.due{color:var(--danger);}
-.acc-row.grand b.clear{color:var(--ok);}
-
 .wa-order{
   display:none; margin-top:14px; background:rgba(87,217,154,.08);
   border:1px solid rgba(87,217,154,.35); border-radius:14px; padding:14px; text-align:center;
@@ -172,31 +152,30 @@ footer{text-align:center; color:var(--text-dim); font-size:11px; margin-top:30px
   .hero p{font-size:17px; font-weight:600; letter-spacing:.4px; margin:14px 0 0; color:var(--text-hi);}
   .hero .sub{font-size:15px; max-width:560px; margin-top:8px;}
 
-  .layout{
-    display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr);
-    gap:26px; align-items:start; margin-top:22px;
-  }
-  .col-left, .col-right{display:flex; flex-direction:column; gap:14px; min-width:0;}
-  .layout .col-left > *, .layout .col-right > *{margin-top:0;}
-  .col-right{position:sticky; top:20px;}
+  .layout{display:grid; grid-template-columns:minmax(0,560px); justify-content:center; margin-top:22px;}
+  .col-left{display:flex; flex-direction:column; gap:14px; min-width:0;}
+  .layout .col-left > *{margin-top:0;}
 
   .card{padding:24px;}
   .dropzone{padding:34px 16px;}
   .submit-hint{margin-top:0;}
   footer{margin-top:40px; font-size:12px;}
 
-  /* ডান পাশে দেখানোর কিছু না থাকলে ফর্ম মাঝখানে */
-  .layout:not(:has(.account-box.show, .wa-order.show)){grid-template-columns:minmax(0,560px); justify-content:center;}
-  .layout:not(:has(.account-box.show, .wa-order.show)) .col-right{display:none;}
 }
 
-/* ===== অর্ডার পাঠানোর অগ্রগতি ===== */
-.pg-title{display:flex; align-items:center; justify-content:center; gap:10px;}
-.pg-spin{width:18px; height:18px; flex-shrink:0; border-radius:50%; border:2.5px solid rgba(255,178,56,.3); border-top-color:var(--gold-2); animation:pg-spin .8s linear infinite;}
-@keyframes pg-spin{to{transform:rotate(360deg);}}
-.pg-bar{height:10px; margin:12px 0 6px; border-radius:20px; overflow:hidden; background:#0d1e40;}
-.pg-bar i{display:block; height:100%; width:0; border-radius:20px; background:linear-gradient(90deg,var(--gold-1),var(--gold-3)); transition:width .5s linear;}
-.pg-info{display:flex; justify-content:space-between; gap:10px; font-size:11.5px; color:var(--text-lo);}
-.pg-warn{margin-top:8px; font-size:11.5px; color:var(--text-hi);}
+/* ===== অর্ডার পাঠানোর অগ্রগতি (বাটনের ভেতরে) ===== */
+.btn-submit.busy{display:flex; align-items:center; justify-content:center; gap:10px;}
+.btn-submit.busy:disabled{
+  opacity:1; cursor:wait;
+  background:linear-gradient(90deg,var(--gold-1),var(--gold-3)) left / var(--fill, 4%) 100% no-repeat, #8d7350;
+  transition:background-size .4s linear;
+}
+.btn-spin{width:18px; height:18px; flex-shrink:0; border-radius:50%; border:2.5px solid rgba(36,19,0,.25); border-top-color:#241300; animation:btn-spin .8s linear infinite;}
+@keyframes btn-spin{to{transform:rotate(360deg);}}
 .btn-retry{display:block; width:100%; margin-top:10px; padding:11px; border-radius:10px; border:1px solid var(--danger); background:transparent; color:var(--danger); font-family:'Inter',sans-serif; font-weight:700; font-size:13px; cursor:pointer;}
 .btn-clear:disabled{opacity:.4; cursor:not-allowed;}
+
+/* সফল বার্তার ভেতরের লিংক */
+.ok-link{margin-top:8px; color:var(--text-hi);}
+.ok-link a{color:var(--gold-1); font-weight:800; text-decoration:underline;}
+.ok-note{margin-top:8px; font-size:11.5px; color:var(--text-lo);}

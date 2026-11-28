@@ -8,39 +8,33 @@ const SEND_TIMEOUT = 5 * 60 * 1000;     // ৫ মিনিটে উত্ত�
 let sending = false;
 let progressTimer = null;
 
-function startProgress(fileCount, bytes){
+// বাটনটাই প্রগ্রেস বার: ভেতরে ঘুরন্ত বৃত্ত, সোনালি রং বাম থেকে ডানে ভরে
+function startProgress(bytes){
   sending = true;
   document.querySelector('.col-left .card').inert = true;   // পাঠানোর সময় কিছু বদলানো যাবে না
   clearBtn.disabled = true;
+  statusBox.classList.remove('show');
 
-  const mb = bytes / (1024 * 1024);
-  const expected = 6 + mb * 8;           // আনুমানিক সেকেন্ড
+  const expected = 6 + bytes / (1024 * 1024) * 8;           // আনুমানিক সেকেন্ড
   const started = Date.now();
 
-  statusBox.className = 'status-box show sending';
-  statusBox.innerHTML = `
-    <div class="pg-title"><i class="pg-spin"></i><span id="pgText">অর্ডার পাঠানো হচ্ছে…</span></div>
-    <div class="pg-bar"><i id="pgFill"></i></div>
-    <div class="pg-info"><span>${fileCount}টি ফাইল • ${fmtSize(bytes)}</span><span id="pgTime">০ সেকেন্ড</span></div>
-    <div class="pg-warn">শেষ না হওয়া পর্যন্ত পেজ বন্ধ করবেন না</div>`;
+  submitBtn.classList.add('busy');
+  submitBtn.innerHTML = '<i class="btn-spin"></i>পাঠানো হচ্ছে…';
 
   const tick = () => {
-    const sec = Math.floor((Date.now() - started) / 1000);
+    const sec = (Date.now() - started) / 1000;
     const percent = 95 * (1 - Math.exp(-1.6 * sec / expected));     // উত্তর না আসা পর্যন্ত ৯৫% এর নিচে
-    document.getElementById('pgFill').style.width = Math.max(4, percent) + '%';
-    document.getElementById('pgTime').textContent = sec.toLocaleString('bn-BD') + ' সেকেন্ড';
-    if (sec > Math.max(45, expected * 2)){
-      document.getElementById('pgText').textContent = 'ইন্টারনেট ধীর, আরেকটু অপেক্ষা করুন…';
-    }
+    submitBtn.style.setProperty('--fill', Math.max(4, percent) + '%');
   };
   tick();
-  progressTimer = setInterval(tick, 500);
-  statusBox.scrollIntoView({behavior: 'smooth', block: 'nearest'});
+  progressTimer = setInterval(tick, 400);
 }
 
 function stopProgress(){
   sending = false;
   clearInterval(progressTimer);
+  submitBtn.classList.remove('busy');
+  submitBtn.style.removeProperty('--fill');
   document.querySelector('.col-left .card').inert = false;
   clearBtn.disabled = false;
 }

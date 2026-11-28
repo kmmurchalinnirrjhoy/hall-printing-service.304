@@ -189,3 +189,21 @@ input:focus, select:focus{border-color:var(--gold-2);}
   #list-pending{display:grid; grid-template-columns:1fr 1fr; gap:0 12px;}
   #list-customers{display:grid; grid-template-columns:1fr 1fr; gap:0 12px; align-items:start;}
 }
+
+/* ---------- পাসওয়ার্ড ---------- */
+.acard{
+  display:flex; justify-content:space-between; align-items:center; gap:12px;
+  background:var(--card); border:1px solid var(--line); border-radius:12px; padding:12px 13px; margin-top:8px;
+}
+.ai{min-width:0; overflow-wrap:anywhere;}
+.an{font-weight:700; font-size:14px;}
+.ap{font-size:12.5px; color:var(--text-lo); margin-top:3px; user-select:text;}
+.ap b{color:var(--gold-2); font-size:14px;}
+.btn-send{
+  flex-shrink:0; padding:10px 18px; border-radius:10px; text-decoration:none; font-weight:800; font-size:13px;
+  background:linear-gradient(135deg,#4ee89a,#1fa855); color:#04210f;
+}
+@media (min-width: 900px){
+  #list-passwords{display:grid; grid-template-columns:1fr 1fr; gap:0 12px;}
+  #list-passwords > .loading, #list-passwords > .empty{grid-column:1 / -1;}
+}

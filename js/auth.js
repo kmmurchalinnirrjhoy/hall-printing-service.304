@@ -53,6 +53,7 @@ $('logoutBtn').addEventListener('click', () => {
   try{ sessionStorage.removeItem('hp_pin'); }catch(e){}
   PIN = ''; D = null; payName = ''; viewName = ''; viewCache = null;
   closeAdd();
+  clearAccounts();
   showTab('summary');
   $('pinInput').value = '';
   setLoginMsg('');

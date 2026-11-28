@@ -13,6 +13,8 @@ const submitBtn = document.getElementById('submitBtn');
 const clearBtn = document.getElementById('clearBtn');
 const statusBox = document.getElementById('statusBox');
 const rTotal = document.getElementById('rTotal');
+const waOrderBox = document.getElementById('waOrderBox');
+const waOrderBtn = document.getElementById('waOrderBtn');
 
 let filesData = [];      // array of file "entry" objects — one per uploaded file
 let idSeq = 0;
@@ -21,33 +23,6 @@ let currentTotal = 0;
 function setStatus(kind, msg){
   statusBox.className = 'status-box show ' + kind;
   statusBox.textContent = msg;
-}
-
-// অর্ডার জমা হলে শুধু এই বার্তা। হিসাব দেখতে লগ ইন (লগইন থাকলে সরাসরি "আমার হিসাব")
-function showSuccess(loggedIn, accountCreated){
-  const link = (href, text) => {
-    const a = document.createElement('a');
-    a.href = href;
-    a.textContent = text;
-    a.style.cssText = 'color:inherit; text-decoration:underline; font-weight:700;';
-    return a;
-  };
-
-  const sub = document.createElement('div');
-  sub.style.cssText = 'font-weight:500; font-size:12.5px; margin-top:2px;';
-  if (loggedIn){
-    sub.append('সকল হিসাব দেখতে ', link('account#account', 'আমার হিসাব'), ' এ যান।');
-  } else if (accountCreated){
-    sub.append('আপনার অ্যাকাউন্ট খোলা হয়েছে। ফোন নম্বর ও পাসওয়ার্ড 01234 দিয়ে ',
-               link('account#login', 'লগ ইন'), ' করে সব হিসাব দেখুন।');
-  } else {
-    sub.append('সকল হিসাব দেখতে ', link('account#login', 'লগ ইন করুন'), '।');
-  }
-
-  statusBox.className = 'status-box show success';
-  statusBox.textContent = '✓ অর্ডার সফলভাবে জমা হয়েছে!';
-  statusBox.appendChild(sub);
-  statusBox.scrollIntoView({behavior:'smooth', block:'nearest'});
 }
 
 dropzone.addEventListener('click', () => fileInput.click());
@@ -166,6 +141,7 @@ clearBtn.addEventListener('click', () => {
   lastOrder = { body: '', id: '' };
   resetForm();
   statusBox.classList.remove('show');
+  waOrderBox.classList.remove('show');
 });
 
 let lastOrder = { body: '', id: '' };
@@ -200,6 +176,21 @@ submitBtn.addEventListener('click', async () => {
     }))
   };
 
+  // reset এর আগে অর্ডারের কপি রাখা হচ্ছে (WhatsApp মেসেজের জন্য)
+  const orderSnapshot = {
+    name: custNameInput.value.trim(),
+    collectLater: collectLater.checked,
+    amountPaid: getAmountPaid(),
+    total: currentTotal,
+    items: filesData.map(e => ({
+      fileName: e.file.name,
+      printType: e.printType,
+      copies: e.copies,
+      total: e.total || 0
+    }))
+  };
+  waOrderBox.classList.remove('show');
+
   submitBtn.disabled = true;
 
   // একই অর্ডার আবার পাঠালে একই আইডি যাবে, তাই সার্ভারে দুইবার জমা হবে না
@@ -218,8 +209,11 @@ submitBtn.addEventListener('click', async () => {
     if (result.status === 'ok') {
       lastOrder = { body: '', id: '' };
       submitBtn.textContent = 'Submit Order →';
+      const previousDue = session ? Number(result.previousDue) || 0 : null;
+      if (result.name) orderSnapshot.name = result.name;
       resetForm();
-      showSuccess(!!session, !!result.accountCreated);
+      showSuccess(!!session, result.accountCreated);
+      showWhatsAppOrder(orderSnapshot, result.fileUrls || [], previousDue);
     } else if (result.code === 'BAD_SESSION') {
       clearSession(); custNameInput.value = '';
       applySession();

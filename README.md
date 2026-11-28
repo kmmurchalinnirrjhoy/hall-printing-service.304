@@ -27,7 +27,8 @@ HallPrinting/
 │   ├── myaccount.js  অ্যাকাউন্ট পেজ
 │   ├── auth.js       অ্যাডমিন লগইন
 │   ├── admin.js      অ্যাডমিন প্যানেল
-│   └── manual.js     ফাইল ছাড়া নতুন এন্ট্রি
+│   ├── manual.js     ফাইল ছাড়া নতুন এন্ট্রি
+│   └── passwords.js  অ্যাডমিন: পাসওয়ার্ড দেখা ও পাঠানো
 ├── assets/images/    লোগো
 └── apps-script/
     └── Code.js       Google Apps Script (ওয়েবসাইটে আপলোড করবেন না)
@@ -36,7 +37,7 @@ HallPrinting/
 ## কোথায় কী বদলাবেন
 | কাজ | ফাইল |
 |---|---|
-| প্রিন্টের দাম, WhatsApp নম্বর, API URL, তাগাদা মেসেজ | `js/config.js` |
+| প্রিন্টের দাম, WhatsApp নম্বর, API URL, তাগাদা ও পাসওয়ার্ড মেসেজ | `js/config.js` |
 | রং | `css/base.css` |
 | ডিজাইন | `css/style.css`, `css/admin.css` (PC এর অংশ ফাইলের নিচে `@media`) |
 | লেখা / বাটন | `index.html`, `admin.html` |

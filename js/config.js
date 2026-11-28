@@ -32,6 +32,15 @@ Hall Printing Service এ আপনার বাকি {due}।
 নিজের হিসাব দেখতে সাইন আপ করুন:
 {link}`;
 
+// ---- পাসওয়ার্ড পাঠানোর মেসেজ (WhatsApp) ----
+// {name} {phone} {password} {link} নিজে থেকে বসবে
+const PASSWORD_MESSAGE = `আসসালামু আলাইকুম {name},
+ফোন নম্বর: {phone}
+আপনার পাসওয়ার্ড: {password}
+
+পাসওয়ার্ড বদলাতে এখানে চাপুন:
+{link}`;
+
 // ---- Print type catalogue (single source of truth for every file card) ----
 const PRINT_TYPES = [
   { value:"B&W Single (2.5 tk/page)",        min:2.5, max:7,  unit:'page',  mode:'single' },

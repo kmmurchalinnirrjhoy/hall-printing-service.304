@@ -33,9 +33,10 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') setMenu(fals
 
 function showTab(name){
   document.querySelectorAll('.tab').forEach(x => x.classList.toggle('active', x.dataset.tab === name));
-  ['summary','pending','customers'].forEach(k => $('tab-' + k).classList.toggle('hidden', k !== name));
+  ['summary','pending','customers','passwords'].forEach(k => $('tab-' + k).classList.toggle('hidden', k !== name));
   setMenu(false);
   window.scrollTo(0, 0);
+  if (name === 'passwords') loadAccounts();
 }
 document.querySelectorAll('.tab').forEach(t => t.addEventListener('click', () => {
   if (t.dataset.tab === 'customers' && viewName && !paySaving){ viewName = ''; payName = ''; renderCustomers(); }

@@ -90,7 +90,10 @@ onSubmit('loginView', () => {
   if (!phone) return 'সঠিক ফোন নম্বর দিন (01XXXXXXXXX)';
   if (!password) return 'পাসওয়ার্ড দিন';
   return {action: 'login', phone, password};
-}, goAccount);
+}, () => {
+  if (location.hash === '#password') route();   // পাসওয়ার্ড বদলানোর লিংক থেকে এলে
+  else goAccount();
+});
 
 onSubmit('passwordView', () => {
   const oldPassword = $('pwOld').value.trim(), newPassword = $('pwNew').value.trim();

@@ -1,5 +1,5 @@
 /* =====================================================
-   কাস্টমারের হিসাব ও WhatsApp মেসেজ
+   সফল বার্তা ও WhatsApp মেসেজ
    ===================================================== */
 
 // ---- WhatsApp order message builder ----
@@ -32,29 +32,15 @@ function buildWhatsAppMessage(snap, fileUrls, previousDue){
   return msg;
 }
 
-// ---- অর্ডার সাবমিট শেষ হলে হিসাব দেখানো ----
-function showAccount(snap, previousDue, note){
-  const guest = previousDue === null;
-  const paid  = parseFloat(snap.amountPaid) || 0;
-  const prev  = Number(previousDue) || 0;
-  const grand = Math.round((prev + snap.total - paid) * 10) / 10;
-  const tk = v => '৳' + Math.abs(v).toFixed(1);
-
-  document.getElementById('accName').textContent = snap.name ? '— ' + snap.name : '';
-  document.getElementById('accPrevRow').classList.toggle('hidden', guest);
-  document.getElementById('accPrevLabel').textContent = prev < 0 ? 'আগের অগ্রিম জমা' : 'আগের বাকি';
-  document.getElementById('accPrev').textContent  = tk(prev);
-  document.getElementById('accToday').textContent = tk(snap.total);
-  document.getElementById('accPaid').textContent  = tk(paid);
-
-  const g = document.getElementById('accGrand');
-  document.getElementById('accGrandLabel').textContent = grand < 0 ? 'অগ্রিম জমা' : guest ? 'এই অর্ডারের বাকি' : 'সর্বমোট বাকি';
-  g.textContent = tk(grand);
-  g.className = grand > 0 ? 'due' : 'clear';
-
-  document.getElementById('accNote').textContent = note || '';
-  accountBox.classList.add('show');
-  accountBox.scrollIntoView({behavior:'smooth', block:'nearest'});
+// ---- অর্ডার সাবমিট শেষ হলে সফল বার্তা ও হিসাবের লিংক ----
+function showSuccess(loggedIn, accountCreated){
+  setStatus('success', '✓ অর্ডার সফলভাবে জমা হয়েছে!');
+  const link = loggedIn
+    ? '<a href="account#account">আমার হিসাব দেখুন</a>'
+    : 'সকল হিসাব দেখতে <a href="account#login">লগ ইন করুন</a>';
+  statusBox.insertAdjacentHTML('beforeend', `<div class="ok-link">${link}</div>` +
+    (accountCreated ? '<div class="ok-note">আপনার অ্যাকাউন্ট খোলা হয়েছে। ফোন নম্বর ও পাসওয়ার্ড 01234 দিয়ে লগ ইন করুন।</div>' : ''));
+  statusBox.scrollIntoView({behavior: 'smooth', block: 'nearest'});
 }
 
 function showWhatsAppOrder(snap, fileUrls, previousDue){
